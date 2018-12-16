@@ -39,7 +39,7 @@ Pay rates
                         </div>
                         <div class="col-9">
                             <label>Customer <small class="text-muted">(optional)</small></label>
-                            <select name="customer_id" class="form-control custom-select">
+                            <select name="customer_id" class="form-control">
 
                                 <option value="" {{ old('customer_id') ?: 'selected'}}>
                                     <span class="text-muted font-italic">
