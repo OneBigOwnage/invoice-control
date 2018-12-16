@@ -1,0 +1,1 @@
+@extends('layoutcomponents.master')
