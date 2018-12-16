@@ -15,7 +15,7 @@ Customers
           New customer
         </a>
       </div>
-      <table class="table table-hover table-sm">
+      <table class="table table-hover table-bordered">
         <thead>
           <tr>
             <th scope="col" class="font-weight-bold" style="width:5%;">#</th>
@@ -27,25 +27,29 @@ Customers
 
           @foreach ($customers as $customer)
           <tr>
-            <th scope="row">{{ $customer->id }}</th>
+            <th scope="row">
+              {{ $customer->id }}
+            </th>
             <td>
               <a href="{{ route('customers.show', ['customer' => $customer->id ]) }}">
                 {{ $customer->name }}
               </a>
             </td>
-            <td class="d-flex justify-content-around align-items-center">
-              <a href="{{ route('customers.edit', ['customer' => $customer->id ]) }}" class="btn btn-xs btn-outline-primary px-1 py-0">
-                <span class="mdi mdi-pencil mdi-18px"></span>
-              </a>
-              <form action="{{ route('customers.destroy', ['customer' => $customer->id ]) }}" method="POST" class="p-0"
-                data-delete="customer">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="btn btn-xs btn-outline-danger px-1 py-0 btn-delete-customer">
-                  <span class="mdi mdi-delete mdi-18px"></span>
-                </button>
-                <button type="submit" hidden></button>
-              </form>
+
+            <td>
+              <div class="d-flex justify-content-around align-items-center">
+                <a href="{{ route('customers.edit', ['customer' => $customer->id]) }}">
+                  <span class="mdi mdi-pencil"></span>
+                </a>
+                <form action="{{ route('customers.destroy', ['customer' => $customer->id]) }}" method="POST" class="m-0 p-0">
+                  @csrf
+                  @method('DELETE')
+                  <span class="btn-delete-customer" style="cursor: pointer;">
+                    <span class="mdi mdi-delete text-danger"></span>
+                  </span>
+                  <button type="submit" hidden></button>
+                </form>
+              </div>
             </td>
           </tr>
           @endforeach
@@ -61,17 +65,18 @@ Customers
 @push('scripts')
 <script>
   $('.btn-delete-customer').on('click', function (event) {
+
+    window.deleteCustomer = () => {
+      $(this).parents('form').first().submit();
+    }
+
     $('#modal-confirm-delete')
       .modal('show')
       .on('shown.bs.modal', function() {
         $('#modal-confirm-delete button[data-dismiss="modal"]').focus();
       });
   });
-
-  const deleteCustomer = () => {
-    $('[data-delete="customer"]').submit();
-  }
-    </script>
+</script>
 @endpush
 
 

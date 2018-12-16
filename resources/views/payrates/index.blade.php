@@ -48,7 +48,7 @@ Pay rates
                 <a href="{{ route('payrates.edit', ['payRate' => $payRate->id]) }}">
                   <span class="mdi mdi-pencil"></span>
                 </a>
-                <form action="{{ route('payrates.destroy', ['payRate' => $payRate->id]) }}" method="POST" class="m-0 p-0" data-delete="pay-rate">
+                <form action="{{ route('payrates.destroy', ['payRate' => $payRate->id]) }}" method="POST" class="m-0 p-0">
                   @csrf
                   @method('DELETE')
                   <span class="btn-delete-pay-rate" style="cursor: pointer;">
