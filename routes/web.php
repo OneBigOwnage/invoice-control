@@ -25,3 +25,4 @@ Route::view('/dashboard', 'dashboard')->name('dashboard');
 // Entities
 Route::resource('customers', 'CustomersController');
 Route::resource('payrates', 'PayRatesController')->parameters(['payrates' => 'payRate']);
+Route::resource('invoices', 'InvoicesController');
