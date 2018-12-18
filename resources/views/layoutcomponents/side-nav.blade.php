@@ -12,7 +12,7 @@
 
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('customers.index') }}" aria-expanded="false">
-                        <i class="mdi mdi-credit-card-multiple"></i>
+                        <i class="mdi mdi-account-multiple"></i>
                         <span class="hide-menu">Customers</span>
                     </a>
                 </li>
@@ -23,8 +23,6 @@
                         <span class="hide-menu">Pay rates</span>
                     </a>
                 </li>
-
-
 
 
             </ul>
