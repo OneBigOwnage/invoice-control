@@ -1,5 +1,16 @@
 @extends('layoutcomponents.master')
 
+@php
+\App\BreadCrumbs::set([
+    'Home'      => route('dashboard')      ,
+    'Customers' => route('customers.index'),
+    $customer->name => route('customers.show', [
+        'customer' => $customer->id
+    ]),
+    'Edit'      => null                    ,
+])
+@endphp
+
 @section('header')
 Customers
 @endsection
