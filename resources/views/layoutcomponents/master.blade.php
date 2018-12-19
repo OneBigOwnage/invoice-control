@@ -27,7 +27,7 @@
             </div>
 
             <footer class="footer text-center">
-                All content is owned by Niek van den Bos | <a href="http://n-vdb.com">website</a>
+                Niek van den Bos | <a href="http://n-vdb.com">n-vdb.com</a>
             </footer>
         </div>
     </div>
