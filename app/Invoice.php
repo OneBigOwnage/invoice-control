@@ -8,6 +8,10 @@ class Invoice extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'is_completed' => 'boolean'
+    ];
+
     public function details()
     {
         return $this->hasMany(InvoiceDetails::class);
