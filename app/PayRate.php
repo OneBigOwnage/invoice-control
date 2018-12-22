@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class PayRate extends Model
 {
@@ -42,5 +43,12 @@ class PayRate extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function scopeForCustomer(Builder $builder, Customer $customer)
+    {
+        return $builder
+            ->where('customer_id', $customer->id)
+            ->orWhereNull('customer_id');
     }
 }
