@@ -22,7 +22,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedInteger('tax_percentage');
             $table->unsignedInteger('sub_total');
             $table->string('description')->nullable();
-            $table->dateTime('task_performed_date')->nullable();
+            $table->date('task_performed_date')->nullable();
 
             $table->timestamps();
 
