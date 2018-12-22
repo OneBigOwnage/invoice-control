@@ -9,6 +9,10 @@ class InvoiceDetails extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'task_performed_date' => 'date'
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -55,9 +59,15 @@ class InvoiceDetails extends Model
             return null;
         }
 
+        // Derive hours from minutes,
+        // then pad with a leading zero if necessary.
         $hours = intval(floor($this->minutes / 60));
+        $hours = str_pad($hours, 2, '0', STR_PAD_LEFT);
 
+        // Derive the remaining minutes from the total minutes,
+        // then pad with a leading zero if necessary.
         $minutes = intval($this->minutes - ($hours * 60));
+        $minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
 
         return sprintf('%s:%s', $hours, $minutes);
     }
