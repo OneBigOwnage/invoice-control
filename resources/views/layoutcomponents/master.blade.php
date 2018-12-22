@@ -55,7 +55,11 @@
 
     @stack('scripts')
 
-
+    <script>
+        (() => {
+            $('[data-toggle="tooltip"]').tooltip();
+        })();
+    </script>
 
     @if ($errors->any())
     <script>

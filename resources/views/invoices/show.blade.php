@@ -2,15 +2,15 @@
 
 @php
 \App\BreadCrumbs::set([
-    'Home'       => route('dashboard')      ,
-    'Invoices'   => route('invoices.index') ,
-    $invoice->id => null                    ,
+  'Home' => route('dashboard') ,
+  'Invoices' => route('invoices.index') ,
+  $invoice->id => null ,
 ])
 @endphp
 
 @section('content')
 <div class="row">
-  <div class="col-8 offset-2">
+  <div class="col-10 offset-1">
     <div class="card form-horizontal">
 
       <div class="card-header">
@@ -19,90 +19,125 @@
 
       <div class="card-body border-top">
 
-            <div class="row">
-                {{-- Customer --}}
-                <div class="col-10">
-                    <div class="form-group">
-                        <label>Customer</label>
-                        <input type="text" readonly class="form-control" value="{{ $invoice->customer->name }}">
-                    </div>
-                </div>
-
-                {{-- Completed --}}
-                <div class="col-2">
-                    <div class="form-group">
-                        <label>Completed</label>
-                        <input type="text" readonly class="form-control" value="{{ $invoice->is_completed ? 'Yes' : 'No' }}">
-                    </div>
-                </div>
+        <div class="row">
+          {{-- Customer --}}
+          <div class="col-10">
+            <div class="form-group">
+              <label>Customer</label>
+              <input type="text" readonly class="form-control" value="{{ $invoice->customer->name }}">
             </div>
+          </div>
 
-            <div class="row">
-
-                {{-- Invoice date --}}
-                <div class="col-5">
-                    <div class="form-group">
-                        <label>Invoice date</label>
-                        <input type="text" readonly class="form-control" value="{{ $invoice->invoice_date ?? '-' }}">
-                    </div>
-                </div>
-
-                {{-- Paid date --}}
-                <div class="col-5">
-                    <div class="form-group">
-                        <label>Paid date</label>
-                        <input type="text" readonly class="form-control" value="{{ $invoice->paid_date ?? '-' }}">
-                    </div>
-                </div>
-
-                {{-- Payment amount --}}
-                <div class="col-2">
-                    <div class="form-group">
-                        <label>Payment amount</label>
-                        <input type="text" readonly class="form-control" value="{{ $invoice->sub_total ?? '-' }}">
-                    </div>
-                </div>
+          {{-- Completed --}}
+          <div class="col-2">
+            <div class="form-group">
+              <label>Invoice Completed</label>
+              <input type="text" readonly class="form-control" value="{{ $invoice->is_completed ? 'Yes' : 'No' }}">
             </div>
+          </div>
+        </div>
 
-            <div class="d-flex justify-content-end mt-3">
-                <a href="{{ route('invoices.edit', ['invoice'=> $invoice->id ]) }}" class="btn btn-primary">Edit invoice</a>
+        <div class="row">
+
+          {{-- Invoice date --}}
+          <div class="col-5">
+            <div class="form-group">
+              <label>Invoice date</label>
+              <input type="text" readonly class="form-control" value="{{ $invoice->invoice_date ?? '-' }}">
             </div>
+          </div>
+
+          {{-- Paid date --}}
+          <div class="col-5">
+            <div class="form-group">
+              <label>Paid date</label>
+              <input type="text" readonly class="form-control" value="{{ $invoice->paid_date ?? '-' }}">
+            </div>
+          </div>
+
+          {{-- Payment amount --}}
+          <div class="col-2">
+            <div class="form-group">
+              <label>Payment amount</label>
+              <input type="text" readonly class="form-control" value="{{ $invoice->sub_total ?? '-' }}">
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+          <a href="{{ route('invoices.edit', ['invoice'=> $invoice->id ]) }}" class="btn btn-primary">Edit invoice</a>
+        </div>
 
       </div>
 
       <div class="card-body border-top">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5>Invoice rules</h5>
-            <a href="{{ route('invoicedetails.create', ['invoice' => $invoice->id]) }}" class="btn btn-sm btn-outline-primary">Add invoice rule</a>
+          <h5>Invoice rules</h5>
+          <a href="{{ route('invoicedetails.create', ['invoice' => $invoice->id]) }}" class="btn btn-sm btn-outline-primary">Add
+            invoice rule</a>
         </div>
 
         <table class="table table-hover table-bordered table-sm">
           <thead>
             <tr>
-              <th scope="col" class="font-weight-bold" style="width:5%;">#</th>
               <th scope="col" class="font-weight-bold" style="width:43%;">Task description</th>
               <th scope="col" class="font-weight-bold" style="width:9%;">Date</th>
-              <th scope="col" class="font-weight-bold" style="width:9%;">Hours</th>
+              <th scope="col" class="font-weight-bold" style="width:9%;">Time</th>
               <th scope="col" class="font-weight-bold" style="width:9%;">Rate</th>
               <th scope="col" class="font-weight-bold" style="width:9%;">Tax %</th>
               <th scope="col" class="font-weight-bold" style="width:9%;">Sub-total</th>
-              <th scope="col" class="font-weight-bold" style="width:7%;">Actions</th>
+
+              @if (!$invoice->is_completed)
+                  <th scope="col" class="font-weight-bold" style="width:7%;">Actions</th>
+              @endif
+
             </tr>
           </thead>
           <tbody>
 
-            @foreach ($invoice->details as $rule)
+            @foreach ($invoice->details as $detail)
 
-                <tr>
-                    <th scope="col">{{ $rule->id }}</th>
-                    <td>{{ $rule->description }}</td>
-                    <td>{{ $rule->rate_id }}</td>
-                    <td>{{ $rule->hours }}</td>
-                    <td>{{ $rule->tax_percentate }}</td>
-                    <td>{{ $rule->sub_total }}</td>
-                    <td>{{ $rule->task_performed_date }}</td>
-                    <td>actions</td>
-                </tr>
+            <tr>
+              <td>
+                {{ $detail->description }}
+              </td>
+              <td>
+                {{ $detail->task_performed_date->toFormattedDateString() }}
+              </td>
+              <td>
+                {{ $detail->formattedTime }}
+              </td>
+              <td class="text-right">
+                <span data-toggle="tooltip" data-placement="top" title="{{ $detail->rate->description }}">
+                  €&nbsp;{{ $detail->rate->rate }}&nbsp;/h
+                </span>
+              </td>
+              <td class="text-right">
+                {{ $detail->tax_percentage }}&nbsp;%
+              </td>
+              <td class="text-right">
+                €&nbsp;{{ $detail->sub_total }}
+              </td>
+              @if (!$invoice->is_completed)
+                <td>
+                  <div class="d-flex justify-content-around align-items-center">
+
+                    <a href="{{ route('invoicedetails.edit', ['invoice' => $invoice->id, 'details' => $detail->id]) }}">
+                      <span class="mdi mdi-pencil"></span>
+                    </a>
+                    <form action="{{ route('invoicedetails.destroy', ['invoice' => $invoice->id, 'details' => $detail->id]) }}" method="POST" class="m-0 p-0">
+                      @csrf
+                      @method('DELETE')
+                      <span class="btn-delete-invoice-details" style="cursor: pointer;">
+                        <span class="mdi mdi-delete text-danger"></span>
+                      </span>
+                      <button type="submit" hidden></button>
+                    </form>
+
+                  </div>
+                </td>
+              @endif
+            </tr>
 
             @endforeach
 
@@ -119,3 +154,43 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+  $('.btn-delete-invoice-details').on('click', function (event) {
+
+    window.deleteInvoiceDetails = () => {
+      $(this).parents('form').first().submit()
+    };
+
+    $('#modal-confirm-delete')
+      .modal('show')
+      .on('shown.bs.modal', function() {
+        $('#modal-confirm-delete button[data-dismiss="modal"]').focus();
+      });
+  });
+</script>
+@endpush
+
+@push('extra-content')
+<div class="modal fade" id="modal-confirm-delete" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm delete invoice rule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you really want to delete this invoice rule from the invoice?<br>
+        This action cannot be undone!
+      </div>
+      <div class="modal-footer d-flex justify-content-between align-items-center">
+        <button type="button" class="btn btn-outline-danger" onclick="deleteInvoiceDetails()">Delete this invoice rule</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Go back to safety</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endpush

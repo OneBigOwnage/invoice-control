@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Invoice;
 use App\Customer;
-use Illuminate\Http\Request;
+use App\PayRate;
 use App\Http\Requests\InvoiceStoreRequest;
+use Illuminate\Http\Request;
 
 class InvoicesController extends Controller
 {
@@ -34,5 +35,15 @@ class InvoicesController extends Controller
     public function show(Invoice $invoice)
     {
         return view('invoices.show', compact('invoice'));
+    }
+
+    public function edit(Invoice $invoice)
+    {
+        $rates = PayRate::forCustomer($invoice->customer);
+
+        return view('invoices.edit', [
+            'invoice' => $invoice,
+            'rates' => $rates
+        ]);
     }
 }

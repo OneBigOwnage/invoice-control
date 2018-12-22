@@ -11,10 +11,7 @@ class InvoiceDetailsController extends Controller
 {
     public function create(Invoice $invoice)
     {
-        $rates = PayRate::
-            where('customer_id', $invoice->customer->id)
-            ->orWhereNull('customer_id')
-            ->get();
+        $rates = PayRate::forCustomer($invoice->customer)->get();
 
         return view('invoice-details.create')
             ->with('invoice', $invoice)
@@ -37,5 +34,21 @@ class InvoiceDetailsController extends Controller
         $details->save();
 
         return redirect()->route('invoices.show', ['invoice' => $invoice]);
+    }
+
+    public function edit(Invoice $invoice, InvoiceDetails $detail)
+    {
+        $rates = PayRate::forCustomer($invoice->customer)->get();
+        return view('invoice-details.edit', [
+            'invoice' => $invoice,
+            'details' => $detail,
+            'rates'   => $rates
+        ]);
+    }
+
+    public function destroy(Invoice $invoice, InvoiceDetails $detail)
+    {
+        $detail->delete();
+        return redirect()->route('invoices.show', ['invoice' => $invoice->id]);
     }
 }
