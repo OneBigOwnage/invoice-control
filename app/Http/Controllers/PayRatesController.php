@@ -16,7 +16,7 @@ class PayRatesController extends Controller
     public function index()
     {
         $payRates = PayRate::all()->sortBy(function (PayRate $payRate, $key) {
-            return optional($payRate->customer)->name;
+            return optional($payRate->customer)->name . $payRate->rate;
         });
         return view('payrates.index', compact('payRates'));
     }
