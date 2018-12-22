@@ -3,8 +3,9 @@
 @section('content')
 <div class="row">
     <div class="col-6 offset-3">
-        <form action="{{ route('invoicedetails.store', ['invoice' => $invoice->id], false) }}" method="POST" class="p-0 m-0">
+        <form action="{{ route('invoicedetails.update', ['invoice' => $invoice->id, 'details' => $details->id], false) }}" method="POST" class="p-0 m-0">
             @csrf
+            @method('PATCH')
             <div class="card">
 
                 <div class="card-header">

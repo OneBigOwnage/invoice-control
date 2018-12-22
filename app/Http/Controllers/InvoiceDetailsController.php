@@ -6,6 +6,7 @@ use App\Invoice;
 use App\PayRate;
 use App\InvoiceDetails;
 use App\Http\Requests\InvoiceDetailsStoreRequest;
+use App\Http\Requests\InvoiceDetailsUpdateRequest;
 
 class InvoiceDetailsController extends Controller
 {
@@ -39,11 +40,28 @@ class InvoiceDetailsController extends Controller
     public function edit(Invoice $invoice, InvoiceDetails $detail)
     {
         $rates = PayRate::forCustomer($invoice->customer)->get();
+
         return view('invoice-details.edit', [
             'invoice' => $invoice,
             'details' => $detail,
             'rates'   => $rates
         ]);
+    }
+
+    public function update(Invoice $invoice, InvoiceDetails $detail, InvoiceDetailsUpdateRequest $request)
+    {
+        $detail->fill($request->only([
+            'rate_id'           ,
+            'tax_percentage'    ,
+            'description'       ,
+            'task_perform_date' ,
+        ]));
+
+        $detail->setMinutesFromTimeString($request->input('time'));
+
+        $detail->update();
+
+        return redirect()->route('invoices.show', ['invoice' => $invoice]);
     }
 
     public function destroy(Invoice $invoice, InvoiceDetails $detail)
