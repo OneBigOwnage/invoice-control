@@ -19,6 +19,8 @@ class CreateInvoicesTable extends Migration
             $table->unsignedInteger('customer_id');
             $table->boolean('is_completed')->default(false);
             $table->unsignedInteger('sub_total')->nullable();
+            $table->dateTime('invoice_date')->nullable();
+            $table->dateTime('paid_date')->nullable();
 
             $table->timestamps();
 
