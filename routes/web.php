@@ -26,3 +26,12 @@ Route::view('/dashboard', 'dashboard')->name('dashboard');
 Route::resource('customers', 'CustomersController');
 Route::resource('payrates', 'PayRatesController')->parameters(['payrates' => 'payRate']);
 Route::resource('invoices', 'InvoicesController');
+Route::resource('invoices/{invoice}/details', 'InvoiceDetailsController')->names([
+    'index'   => 'invoicedetails.index'   ,
+    'create'  => 'invoicedetails.create'  ,
+    'store'   => 'invoicedetails.store'   ,
+    'show'    => 'invoicedetails.show'    ,
+    'edit'    => 'invoicedetails.edit'    ,
+    'update'  => 'invoicedetails.update'  ,
+    'destroy' => 'invoicedetails.destroy' ,
+]);
