@@ -18,7 +18,7 @@ class CreateInvoiceDetailsTable extends Migration
 
             $table->unsignedInteger('invoice_id');
             $table->unsignedInteger('rate_id');
-            $table->unsignedInteger('hours');
+            $table->unsignedInteger('minutes');
             $table->unsignedInteger('tax_percentage');
             $table->unsignedInteger('sub_total');
             $table->string('description')->nullable();
