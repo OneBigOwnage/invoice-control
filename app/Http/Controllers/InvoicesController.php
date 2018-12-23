@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class InvoicesController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $invoices = Invoice::all();

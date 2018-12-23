@@ -10,6 +10,10 @@ use App\Http\Requests\InvoiceDetailsUpdateRequest;
 
 class InvoiceDetailsController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function create(Invoice $invoice)
     {
         $rates = PayRate::forCustomer($invoice->customer)->get();
