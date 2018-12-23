@@ -29,6 +29,7 @@ Invoices
             <th scope="col" class="font-weight-bold" style="width:79%;">Customer</th>
             <th scope="col" class="font-weight-bold" style="width:9%;">Amount</th>
             <th scope="col" class="font-weight-bold" style="width:7%;">Completed</th>
+            <th scope="col" class="font-weight-bold" style="width:7%;">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -45,6 +46,9 @@ Invoices
                 {{ $invoice->customer->name }}
               </a>
             </td>
+            <td class="text-right">
+              €&nbsp;{{ $invoice->sub_total }}
+            </td>
             <td>
 
               @if ($invoice->is_completed)
@@ -57,9 +61,11 @@ Invoices
             <td>
               <div class="d-flex justify-content-around align-items-center">
 
-                <a href="{{ route('invoices.edit', ['invoice' => $invoice->id]) }}">
-                  <span class="mdi mdi-pencil"></span>
-                </a>
+                @if (!$invoice->is_completed)
+                  <a href="{{ route('invoices.edit', ['invoice' => $invoice->id]) }}">
+                    <span class="mdi mdi-pencil"></span>
+                  </a>
+                @endif
 
                 <form action="{{ route('invoices.destroy', ['invoice' => $invoice->id]) }}" method="POST" class="m-0 p-0">
                   @csrf
