@@ -35,3 +35,5 @@ Route::resource('invoices/{invoice}/details', 'InvoiceDetailsController')->names
     'update'  => 'invoicedetails.update'  ,
     'destroy' => 'invoicedetails.destroy' ,
 ]);
+
+Route::post('invoices/{invoice}/finalize', 'InvoicesController@finalize')->name('invoices.finalize');

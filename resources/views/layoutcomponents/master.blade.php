@@ -74,6 +74,16 @@
     </script>
     @endif
 
+    @if (session('toastrMessage'))
+        <script>
+            const method  = {!! '\'' . session('toastrMessage')->type    . '\'' !!};
+            const message = {!! '\'' . session('toastrMessage')->message . '\'' !!};
+            const title   = {!! '\'' . session('toastrMessage')->title   . '\'' !!};
+
+            toastr[method](message, title);
+        </script>
+    @endif
+
 </body>
 
 </html>

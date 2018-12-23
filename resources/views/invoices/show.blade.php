@@ -43,7 +43,7 @@
           <div class="col-5">
             <div class="form-group">
               <label>Invoice date</label>
-              <input type="text" readonly class="form-control" value="{{ $invoice->invoice_date ?? '-' }}">
+              <input type="text" readonly class="form-control" value="{{ optional($invoice->invoice_date)->toFormattedDateString() ?? '-' }}">
             </div>
           </div>
 
@@ -51,7 +51,7 @@
           <div class="col-5">
             <div class="form-group">
               <label>Paid date</label>
-              <input type="text" readonly class="form-control" value="{{ $invoice->paid_date ?? '-' }}">
+              <input type="text" readonly class="form-control" value="{{ optional($invoice->paid_date)->toFormattedDateString() ?? '-' }}">
             </div>
           </div>
 
@@ -64,17 +64,27 @@
           </div>
         </div>
 
-        <div class="d-flex justify-content-end mt-3">
-          <a href="{{ route('invoices.edit', ['invoice'=> $invoice->id ]) }}" class="btn btn-primary">Edit invoice</a>
-        </div>
-
+        @if (!$invoice->is_completed)
+          <div class="d-flex justify-content-end mt-3">
+            <form action="{{ route('invoices.finalize', ['invoice'=> $invoice->id ]) }}" method="POST" class="m-0 p-0">
+              @csrf
+              <button type="submit" class="btn btn-success mr-2">
+                Finalize invoice
+              </button>
+            </form>
+            <a href="{{ route('invoices.edit', ['invoice'=> $invoice->id ]) }}" class="btn btn-primary">Edit invoice</a>
+          </div>
+        @endif
       </div>
 
       <div class="card-body border-top">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h5>Invoice rules</h5>
-          <a href="{{ route('invoicedetails.create', ['invoice' => $invoice->id]) }}" class="btn btn-sm btn-outline-primary">Add
-            invoice rule</a>
+          @if (!$invoice->is_completed)
+            <a href="{{ route('invoicedetails.create', ['invoice' => $invoice->id]) }}" class="btn btn-sm btn-outline-primary">
+              Add invoice rule
+            </a>
+          @endif
         </div>
 
         <table class="table table-hover table-bordered table-sm">

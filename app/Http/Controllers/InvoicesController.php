@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Invoice;
 use App\Customer;
 use App\PayRate;
 use App\Http\Requests\InvoiceStoreRequest;
+use App\Http\Requests\InvoiceUpdateRequest;
 use Illuminate\Http\Request;
 
 class InvoicesController extends Controller
@@ -49,5 +51,32 @@ class InvoicesController extends Controller
             'invoice' => $invoice,
             'rates' => $rates
         ]);
+    }
+
+    public function update(Invoice $invoice, InvoiceUpdateRequest $request)
+    {
+        $invoice->update($request->only([
+            'invoice_date' ,
+            'paid_date'    ,
+        ]));
+
+        return redirect()->route('invoices.show', ['invoice' => $invoice->id]);
+    }
+
+    public function finalize(Invoice $invoice)
+    {
+        try {
+            $invoice->finalize();
+        } catch (Exception $ex) {
+            return redirect()->back()->with(['toastrMessage' => (object) [
+                'type'    => 'error' ,
+                'message' => preg_replace('/\n/', '<br>', $ex->getMessage())     ,
+                'title'   => ''     ,
+            ]]);
+        }
+
+        $invoice->save();
+
+        return redirect()->route('invoices.show', ['invoice' => $invoice]);
     }
 }

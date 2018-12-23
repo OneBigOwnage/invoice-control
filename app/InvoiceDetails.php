@@ -19,6 +19,8 @@ class InvoiceDetails extends Model
 
         static::saving(function (InvoiceDetails $details) {
             $details->setSubTotal();
+            $details->invoice->calculateTotal();
+            $details->invoice->save();
         });
     }
 
