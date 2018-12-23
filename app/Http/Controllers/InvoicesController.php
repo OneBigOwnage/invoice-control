@@ -55,6 +55,16 @@ class InvoicesController extends Controller
 
     public function update(Invoice $invoice, InvoiceUpdateRequest $request)
     {
+        if ($invoice->is_completed) {
+            return redirect()
+                ->route('invoices.show', ['invoice' => $invoice->id])
+                ->with(['toastrMessage' => (object) [
+                    'type'    => 'error'                        ,
+                    'message' => 'It is already completed.'     ,
+                    'title'   => 'Not possible to edit invoice' ,
+                ]]);
+        }
+
         $invoice->update($request->only([
             'invoice_date' ,
             'paid_date'    ,
