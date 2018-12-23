@@ -25,6 +25,16 @@ class InvoiceDetailsController extends Controller
 
     public function store(Invoice $invoice, InvoiceDetailsStoreRequest $request)
     {
+        if ($invoice->is_completed) {
+            return redirect()
+                ->route('invoices.show', ['invoice' => $invoice->id])
+                ->with(['toastrMessage' => (object) [
+                    'type'    => 'error'                              ,
+                    'message' => 'This invoice is already completed.' ,
+                    'title'   => 'Not possible to add another rule'   ,
+                ]]);
+        }
+
         $details = new InvoiceDetails($request->only([
             'rate_id'             ,
             'tax_percentage'      ,
@@ -54,6 +64,16 @@ class InvoiceDetailsController extends Controller
 
     public function update(Invoice $invoice, InvoiceDetails $detail, InvoiceDetailsUpdateRequest $request)
     {
+        if ($invoice->is_completed) {
+            return redirect()
+                ->route('invoices.show', ['invoice' => $invoice->id])
+                ->with(['toastrMessage' => (object) [
+                    'type'    => 'error'                              ,
+                    'message' => 'This invoice is already completed.' ,
+                    'title'   => 'Not possible to edit this rule'   ,
+                ]]);
+        }
+
         $detail->fill($request->only([
             'rate_id'           ,
             'tax_percentage'    ,
