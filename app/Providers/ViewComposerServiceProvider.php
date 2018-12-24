@@ -9,6 +9,8 @@ use App\ViewComposers\Customers\CustomersShowComposer;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\ViewComposers\InvoiceDetails\InvoiceDetailsCreateComposer;
+use App\ViewComposers\InvoiceDetails\InvoiceDetailsEditComposer;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer('customers.edit'  , CustomersEditComposer  ::class);
         View::composer('customers.index' , CustomersIndexComposer ::class);
         View::composer('customers.show'  , CustomersShowComposer  ::class);
+
+        View::composer('invoice-details.create' , InvoiceDetailsCreateComposer::class);
+        View::composer('invoice-details.edit'   , InvoiceDetailsEditComposer  ::class);
     }
 
     /**
