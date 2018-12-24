@@ -1,13 +1,5 @@
 @extends('layoutcomponents.master')
 
-@php
-\App\BreadCrumbs::set([
-  'Home' => route('dashboard') ,
-  'Invoices' => route('invoices.index') ,
-  $invoice->id => null ,
-])
-@endphp
-
 @section('content')
 <div class="row">
   <div class="col-10 offset-1">
@@ -65,15 +57,15 @@
         </div>
 
         @if (!$invoice->is_completed)
-          <div class="d-flex justify-content-end mt-3">
-            <form action="{{ route('invoices.finalize', ['invoice'=> $invoice->id ]) }}" method="POST" class="m-0 p-0">
-              @csrf
-              <button type="submit" class="btn btn-success mr-2">
-                Finalize invoice
-              </button>
-            </form>
-            <a href="{{ route('invoices.edit', ['invoice'=> $invoice->id ]) }}" class="btn btn-primary">Edit invoice</a>
-          </div>
+        <div class="d-flex justify-content-end mt-3">
+          <form action="{{ route('invoices.finalize', ['invoice'=> $invoice->id ]) }}" method="POST" class="m-0 p-0">
+            @csrf
+            <button type="submit" class="btn btn-success mr-2">
+              Finalize invoice
+            </button>
+          </form>
+          <a href="{{ route('invoices.edit', ['invoice'=> $invoice->id ]) }}" class="btn btn-primary">Edit invoice</a>
+        </div>
         @endif
       </div>
 
@@ -81,9 +73,9 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h5>Invoice rules</h5>
           @if (!$invoice->is_completed)
-            <a href="{{ route('invoicedetails.create', ['invoice' => $invoice->id]) }}" class="btn btn-sm btn-outline-primary">
-              Add invoice rule
-            </a>
+          <a href="{{ route('invoicedetails.create', ['invoice' => $invoice->id]) }}" class="btn btn-sm btn-outline-primary">
+            Add invoice rule
+          </a>
           @endif
         </div>
 
@@ -98,7 +90,7 @@
               <th scope="col" class="font-weight-bold" style="width:9%;">Sub-total</th>
 
               @if (!$invoice->is_completed)
-                  <th scope="col" class="font-weight-bold" style="width:7%;">Actions</th>
+              <th scope="col" class="font-weight-bold" style="width:7%;">Actions</th>
               @endif
 
             </tr>
@@ -129,23 +121,24 @@
                 €&nbsp;{{ $detail->sub_total }}
               </td>
               @if (!$invoice->is_completed)
-                <td>
-                  <div class="d-flex justify-content-around align-items-center">
+              <td>
+                <div class="d-flex justify-content-around align-items-center">
 
-                    <a href="{{ route('invoicedetails.edit', ['invoice' => $invoice->id, 'details' => $detail->id]) }}">
-                      <span class="mdi mdi-pencil"></span>
-                    </a>
-                    <form action="{{ route('invoicedetails.destroy', ['invoice' => $invoice->id, 'details' => $detail->id]) }}" method="POST" class="m-0 p-0">
-                      @csrf
-                      @method('DELETE')
-                      <span class="btn-delete-invoice-details" style="cursor: pointer;">
-                        <span class="mdi mdi-delete text-danger"></span>
-                      </span>
-                      <button type="submit" hidden></button>
-                    </form>
+                  <a href="{{ route('invoicedetails.edit', ['invoice' => $invoice->id, 'details' => $detail->id]) }}">
+                    <span class="mdi mdi-pencil"></span>
+                  </a>
+                  <form action="{{ route('invoicedetails.destroy', ['invoice' => $invoice->id, 'details' => $detail->id]) }}"
+                    method="POST" class="m-0 p-0">
+                    @csrf
+                    @method('DELETE')
+                    <span class="btn-delete-invoice-details" style="cursor: pointer;">
+                      <span class="mdi mdi-delete text-danger"></span>
+                    </span>
+                    <button type="submit" hidden></button>
+                  </form>
 
-                  </div>
-                </td>
+                </div>
+              </td>
               @endif
             </tr>
 
