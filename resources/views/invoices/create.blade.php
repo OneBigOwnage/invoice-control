@@ -1,13 +1,5 @@
 @extends('layoutcomponents.master')
 
-@php
-\App\BreadCrumbs::set([
-    'Home'      => route('dashboard')       ,
-    'Invoices'  => route('invoices.index') ,
-    'Create'    => null                     ,
-])
-@endphp
-
 @section('content')
 <div class="row">
     <div class="col-6 offset-3">
