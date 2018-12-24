@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
-use App\ViewComposers\PayRates\PayRateCreateComposer;
-use App\ViewComposers\PayRates\PayRateEditComposer;
-use App\ViewComposers\Invoices\InvoiceCreateComposer;
-use App\ViewComposers\InvoiceDetails\InvoiceDetailsCreateComposer;
-use App\ViewComposers\InvoiceDetails\InvoiceDetailsEditComposer;
+use App\ViewComposers\Customers\CustomersCreateComposer;
+use App\ViewComposers\Customers\CustomersEditComposer;
+use App\ViewComposers\Customers\CustomersIndexComposer;
+use App\ViewComposers\Customers\CustomersShowComposer;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -20,13 +19,10 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('payrates.create', PayRateCreateComposer::class);
-        View::composer('payrates.edit', PayRateEditComposer::class);
-
-        View::composer('invoices.create', InvoiceCreateComposer::class);
-
-        View::composer('invoice-details.create', InvoiceDetailsCreateComposer::class);
-        View::composer('invoice-details.edit', InvoiceDetailsEditComposer::class);
+        View::composer('customers.create', CustomersCreateComposer::class);
+        View::composer('customers.edit'  , CustomersEditComposer  ::class);
+        View::composer('customers.index' , CustomersIndexComposer ::class);
+        View::composer('customers.show'  , CustomersShowComposer  ::class);
     }
 
     /**
