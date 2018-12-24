@@ -1,9 +1,5 @@
 @extends('layoutcomponents.master')
 
-@section('header')
-Pay rates
-@endsection
-
 @section('content')
 <div class="row">
   <div class="col-12">
