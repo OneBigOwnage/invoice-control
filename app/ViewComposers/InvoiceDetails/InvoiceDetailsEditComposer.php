@@ -12,7 +12,7 @@ class InvoiceDetailsEditComposer extends BaseViewComposer implements ViewCompose
      */
     public function bindData()
     {
-        $rates = PayRate::forCustomer($view->invoice->customer)->get();
+        $rates = PayRate::forCustomer($this->view->invoice->customer)->get();
 
         $this->view->with(
             compact('rates')
