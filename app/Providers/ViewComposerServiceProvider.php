@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\ViewComposers\PayRates\PayRateCreateComposer;
 use App\ViewComposers\PayRates\PayRateEditComposer;
 use App\ViewComposers\Invoices\InvoiceCreateComposer;
+use App\ViewComposers\InvoiceDetails\InvoiceDetailsCreateComposer;
+use App\ViewComposers\InvoiceDetails\InvoiceDetailsEditComposer;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +24,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer('payrates.edit', PayRateEditComposer::class);
 
         View::composer('invoices.create', InvoiceCreateComposer::class);
+
+        View::composer('invoice-details.create', InvoiceDetailsCreateComposer::class);
+        View::composer('invoice-details.edit', InvoiceDetailsEditComposer::class);
     }
 
     /**

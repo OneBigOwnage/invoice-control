@@ -16,11 +16,7 @@ class InvoiceDetailsController extends Controller
 
     public function create(Invoice $invoice)
     {
-        $rates = PayRate::forCustomer($invoice->customer)->get();
-
-        return view('invoice-details.create')
-            ->with('invoice', $invoice)
-            ->with('rates', $rates);
+        return view('invoice-details.create', compact('invoice'));
     }
 
     public function store(Invoice $invoice, InvoiceDetailsStoreRequest $request)
@@ -53,13 +49,7 @@ class InvoiceDetailsController extends Controller
 
     public function edit(Invoice $invoice, InvoiceDetails $detail)
     {
-        $rates = PayRate::forCustomer($invoice->customer)->get();
-
-        return view('invoice-details.edit', [
-            'invoice' => $invoice,
-            'details' => $detail,
-            'rates'   => $rates
-        ]);
+        return view('invoice-details.edit', compact('invoice', 'detail'));
     }
 
     public function update(Invoice $invoice, InvoiceDetails $detail, InvoiceDetailsUpdateRequest $request)
