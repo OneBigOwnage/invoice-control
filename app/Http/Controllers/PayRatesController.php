@@ -23,10 +23,7 @@ class PayRatesController extends Controller
 
     public function create()
     {
-        $customers = Customer::all();
-
-        return view('payrates.create')
-            ->with(compact('customers'));
+        return view('payrates.create');
     }
 
     public function store(PayRateStoreRequest $request)
@@ -45,12 +42,7 @@ class PayRatesController extends Controller
 
     public function edit(PayRate $payRate)
     {
-        $customers = Customer::all();
-
-        return view('payrates.edit', [
-            'payRate' => $payRate,
-            'customers' => $customers
-        ]);
+        return view('payrates.edit', compact('payRate'));
     }
 
     public function update(PayRateUpdateRequest $request, PayRate $payRate)
