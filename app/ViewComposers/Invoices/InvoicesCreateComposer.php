@@ -7,7 +7,7 @@ use App\Contracts\ViewComposer;
 use App\ViewComposers\ViewComposer as BaseViewComposer;
 use Illuminate\View\View;
 
-class InvoiceCreateComposer extends BaseViewComposer implements ViewComposer
+class InvoicesCreateComposer extends BaseViewComposer implements ViewComposer
 {
     /**
      * @inheritdoc

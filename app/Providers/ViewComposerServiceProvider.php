@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\ViewComposers\InvoiceDetails\InvoiceDetailsCreateComposer;
 use App\ViewComposers\InvoiceDetails\InvoiceDetailsEditComposer;
+use App\ViewComposers\Invoices\InvoicesEditComposer;
+use App\ViewComposers\Invoices\InvoicesCreateComposer;
+use App\ViewComposers\Invoices\InvoicesIndexComposer;
+use App\ViewComposers\Invoices\InvoicesShowComposer;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -28,6 +32,11 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer('invoice-details.create' , InvoiceDetailsCreateComposer::class);
         View::composer('invoice-details.edit'   , InvoiceDetailsEditComposer  ::class);
+
+        View::composer('invoices.create' , InvoicesCreateComposer::class);
+        View::composer('invoices.edit'   , InvoicesEditComposer  ::class);
+        View::composer('invoices.index'  , InvoicesIndexComposer ::class);
+        View::composer('invoices.show'   , InvoicesShowComposer  ::class);
     }
 
     /**
