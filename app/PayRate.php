@@ -35,16 +35,25 @@ class PayRate extends Model
         $this->attributes['rate'] = $rate * 100;
     }
 
+    /**
+     * All related invoice details.
+     */
     public function invoiceDetails()
     {
         return $this->belongsToMany(InvoiceDetails::class);
     }
 
+    /**
+     * The customer that this pay rate belongs to.
+     */
     public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
 
+    /**
+     * Custom query scope to scope the query to a specific customer.
+     */
     public function scopeForCustomer(Builder $builder, Customer $customer)
     {
         return $builder

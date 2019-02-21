@@ -28,11 +28,17 @@ class InvoiceDetails extends Model
         });
     }
 
+    /**
+     * The invoice that this invoice details belongs to.
+     */
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);
     }
 
+    /**
+     * The related rate that this invoice details uses.
+     */
     public function rate()
     {
         return $this->belongsTo(PayRate::class);
