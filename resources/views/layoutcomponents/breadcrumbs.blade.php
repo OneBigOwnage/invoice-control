@@ -3,13 +3,11 @@
         <div class="col-12 d-flex no-block align-items-center">
             <div class="mr-auto">
 
-                @inject('BreadCrumbs', '\App\BreadCrumbs')
-
-                @if(!empty($BreadCrumbs->get()))
+                @isset($breadCrumbs)
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
 
-                            @foreach ($BreadCrumbs->get() as $crumbText => $crumbURL)
+                            @foreach ($breadCrumbs as $crumbText => $crumbURL)
 
                                 @if ($loop->last)
                                     <li class="breadcrumb-item active" aria-current="page">

@@ -1,16 +1,5 @@
 @extends('layoutcomponents.master')
 
-@php
-\App\BreadCrumbs::set([
-'Home' => route('dashboard') ,
-'Invoices' => null ,
-])
-@endphp
-
-@section('header')
-Invoices
-@endsection
-
 @section('content')
 <div class="row">
   <div class="col-12">
@@ -52,9 +41,9 @@ Invoices
             <td>
 
               @if ($invoice->is_completed)
-                <span class="badge badge-success font-weight-bold">Completed</span>
+              <span class="badge badge-success font-weight-bold">Completed</span>
               @else
-                <span class="badge badge-danger font-weight-bold">Not completed</span>
+              <span class="badge badge-danger font-weight-bold">Not completed</span>
               @endif
 
             </td>
@@ -62,9 +51,9 @@ Invoices
               <div class="d-flex justify-content-around align-items-center">
 
                 @if (!$invoice->is_completed)
-                  <a href="{{ route('invoices.edit', ['invoice' => $invoice->id]) }}">
-                    <span class="mdi mdi-pencil"></span>
-                  </a>
+                <a href="{{ route('invoices.edit', ['invoice' => $invoice->id]) }}">
+                  <span class="mdi mdi-pencil"></span>
+                </a>
                 @endif
 
                 <form action="{{ route('invoices.destroy', ['invoice' => $invoice->id]) }}" method="POST" class="m-0 p-0">

@@ -25,8 +25,7 @@ class InvoicesController extends Controller
 
     public function create()
     {
-        $customers = Customer::all();
-        return view('invoices.create', compact('customers'));
+        return view('invoices.create');
     }
 
     public function store(InvoiceStoreRequest $request)
@@ -45,12 +44,7 @@ class InvoicesController extends Controller
 
     public function edit(Invoice $invoice)
     {
-        $rates = PayRate::forCustomer($invoice->customer);
-
-        return view('invoices.edit', [
-            'invoice' => $invoice,
-            'rates' => $rates
-        ]);
+        return view('invoices.edit', compact('invoice'));
     }
 
     public function update(Invoice $invoice, InvoiceUpdateRequest $request)

@@ -1,0 +1,35 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Contracts\ViewComposer;
+use App\ViewComposers\ViewComposer as BaseViewComposer;
+
+class DummyClass extends BaseViewComposer implements ViewComposer
+{
+    /**
+     * @inheritdoc
+     */
+    public function bindData()
+    {
+        //
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function breadCrumbs()
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function title()
+    {
+        return '';
+    }
+}

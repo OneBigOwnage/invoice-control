@@ -1,16 +1,5 @@
 @extends('layoutcomponents.master')
 
-@php
-\App\BreadCrumbs::set([
-    'Home'      => route('dashboard') ,
-    'Customers' => null	              ,
-])
-@endphp
-
-@section('header')
-Customers
-@endsection
-
 @section('content')
 <div class="row">
   <div class="col-12">
