@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
   <div class="col-6 offset-3">
-    <form action="{{ route('invoicedetails.update', ['invoice' => $invoice->id, 'details' => $details->id], false) }}"
+    <form action="{{ route('invoicedetails.update', ['invoice' => $invoice->id, 'details' => $detail->id], false) }}"
       method="POST" class="p-0 m-0">
       @csrf
       @method('PATCH')
@@ -19,7 +19,7 @@
             <div class="col-2">
               <div class="form-group">
                 <label>Time</label>
-                <input type="text" name="time" class="form-control" placeholder="HH:MM" value="{{ old('time') ?? $details->formatted_time }}">
+                <input type="text" name="time" class="form-control" placeholder="HH:MM" value="{{ old('time') ?? $detail->formatted_time }}">
               </div>
             </div>
 
@@ -29,9 +29,10 @@
                 <select name="rate_id" class="form-control">
 
                   @foreach ($rates as $rate)
+                  @dump($rate)
                   {{-- If we have old input, use it. If we don't have old input, use the current rate that is attached to this invoice detail --}}
                   <option value="{{ $rate->id }}"
-                    {{ old('rate_id') == $rate->id || is_null(old('rate_id')) && $details->rate->id == $rate->id ?' selected': null  }}>
+                    {{ old('rate_id') == $rate->id || is_null(old('rate_id')) && $detail->rate->id == $rate->id ?' selected': null  }}>
                     {{ $rate->description }} (€{{ $rate->rate }}/h)
                   </option>
                   @endforeach
@@ -44,7 +45,7 @@
               <div class="form-group">
                 <label>Tax</label>
                 <div class="input-group">
-                  <input type="text" name="tax_percentage" class="form-control" placeholder="Tax" value="{{ old('tax_percentage') ?? $details->tax_percentage }}">
+                  <input type="text" name="tax_percentage" class="form-control" placeholder="Tax" value="{{ old('tax_percentage') ?? $detail->tax_percentage }}">
                   <div class="input-group-append">
                     <span class="input-group-text">%</span>
                   </div>
@@ -62,7 +63,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">€</span>
                   </div>
-                  <input type="text" id="sub_total_calculated" class="form-control" readonly value="{{ $details->sub_total }}">
+                  <input type="text" id="sub_total_calculated" class="form-control" readonly value="{{ $detail->sub_total }}">
                 </div>
               </div>
             </div>
@@ -74,14 +75,14 @@
             <div class="col-9">
               <div class="form-group">
                 <label>Description</label>
-                <input type="text" name="description" class="form-control" value="{{ old('description') ?? $details->description }}">
+                <input type="text" name="description" class="form-control" value="{{ old('description') ?? $detail->description }}">
               </div>
             </div>
 
             <div class="col-3">
               <div class="form-group">
                 <label>Work date</label>
-                <input type="text" name="task_performed_date" class="form-control" autocomplete="off" value="{{ old('task_performed_date') ?? $details->task_performed_date->toDateString() }}">
+                <input type="text" name="task_performed_date" class="form-control" autocomplete="off" value="{{ old('task_performed_date') ?? $detail->task_performed_date->toDateString() }}">
               </div>
             </div>
 
