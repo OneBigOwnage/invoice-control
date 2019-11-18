@@ -2,6 +2,7 @@
 
 namespace App\ViewComposers\InvoiceDetails;
 
+use App\PayRate;
 use App\Contracts\ViewComposer;
 use App\ViewComposers\ViewComposer as BaseViewComposer;
 
